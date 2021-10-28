@@ -1,0 +1,268 @@
+2021-10-14 18:10:05,010:INFO:__init__:RSS Parser Session is starting
+2021-10-14 18:10:05,010:INFO:parser_initiation:Getting content of RSS link
+2021-10-14 18:10:05,360:INFO:parser_initiation:Connection established successfully
+2021-10-14 18:11:42,243:INFO:__init__:RSS Parser Session is starting
+2021-10-14 18:11:42,244:INFO:parser_initiation:Getting content of RSS link
+2021-10-14 18:11:42,573:INFO:parser_initiation:Connection established successfully
+2021-10-14 18:12:25,533 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:12:25,533 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:12:25,872 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:13:49,641 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:13:49,642 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:13:49,916 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:24:24,833 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:24:24,834 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:24:25,150 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:24:25,175 : INFO : title_parser : Parsing title
+2021-10-14 18:25:24,221 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:25:24,221 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:25:24,231 : ERROR : parser_initiation : HTTPSConnectionPool(host='rss.nytimes.com', port=443): Max retries exceeded with url: /services/xml/rss/nyt/HomePage.xml (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x00000224DB346190>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+2021-10-14 18:27:07,992 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:27:07,992 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:27:08,446 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:28:21,343 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:28:21,344 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:28:21,838 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:34:25,860 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:34:25,860 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:34:26,682 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:34:41,530 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:34:41,530 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:34:42,064 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:35:50,123 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:35:50,123 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:35:50,544 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:35:50,566 : INFO : view_output : Printing otput in JSON format
+2021-10-14 18:36:39,750 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:36:39,751 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:36:40,252 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:36:40,272 : INFO : view_output : Printing otput in JSON format
+2021-10-14 18:36:40,276 : INFO : <module> : Session finished
+2021-10-14 18:36:54,673 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:36:54,674 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:36:55,055 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:36:55,098 : INFO : <module> : Session finished
+2021-10-14 18:37:03,333 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:37:03,333 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:37:03,733 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:37:03,788 : INFO : <module> : 
+Session finished
+2021-10-14 18:38:54,052 : INFO : __init__ : RSS Parser Session is starting
+2021-10-14 18:38:54,053 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:38:54,542 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:38:54,575 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:39:46,236 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:39:46,236 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:39:46,239 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:39:46,669 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:39:46,748 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:44:56,642 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:44:56,643 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:44:56,643 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:44:56,917 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:44:56,947 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:47:28,724 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:47:28,724 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:47:28,725 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:47:29,011 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:47:29,060 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:47:48,152 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:47:48,153 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:47:48,153 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:47:48,343 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:47:48,387 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:53:26,445 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:53:26,445 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:53:26,445 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:53:46,030 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:53:46,036 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:57:31,384 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:57:31,384 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:57:31,384 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:57:31,934 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:57:31,957 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 18:58:49,887 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 18:58:49,887 : INFO : __init__ : RSS Parser is starting
+2021-10-14 18:58:49,887 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 18:58:50,066 : INFO : parser_initiation : Connection established successfully
+2021-10-14 18:58:50,122 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 19:05:02,355 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 19:05:02,355 : INFO : __init__ : RSS Parser is starting
+2021-10-14 19:05:02,355 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 19:05:02,776 : INFO : parser_initiation : Connection established successfully
+2021-10-14 19:05:02,833 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 19:05:31,701 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 19:05:31,701 : INFO : __init__ : RSS Parser is starting
+2021-10-14 19:05:31,702 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 19:05:32,088 : INFO : parser_initiation : Connection established successfully
+2021-10-14 19:05:32,121 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 19:09:49,077 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 19:09:49,077 : INFO : __init__ : RSS Parser is starting
+2021-10-14 19:09:49,077 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 19:09:49,306 : INFO : parser_initiation : Connection established successfully
+2021-10-14 19:09:49,349 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 19:10:24,338 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 19:10:24,339 : INFO : __init__ : RSS Parser is starting
+2021-10-14 19:10:24,339 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 19:10:24,506 : INFO : parser_initiation : Connection established successfully
+2021-10-14 19:10:24,555 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 19:11:20,581 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 19:11:20,582 : INFO : __init__ : RSS Parser is starting
+2021-10-14 19:11:20,584 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 19:11:21,288 : INFO : parser_initiation : Connection established successfully
+2021-10-14 19:11:21,359 : INFO : <module> : --------------------Session finished--------------------
+2021-10-14 21:49:48,504 : INFO : <module> : --------------------Starting session--------------------
+2021-10-14 21:49:48,505 : INFO : __init__ : RSS Parser is starting
+2021-10-14 21:49:48,516 : INFO : parser_initiation : Getting content of RSS link
+2021-10-14 21:49:49,144 : INFO : parser_initiation : Connection established successfully
+2021-10-14 21:49:49,212 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:18:23,539 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:18:23,539 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:18:23,539 : INFO : parser_initiation : Getting content of RSS link
+2021-10-28 12:18:23,806 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:19:22,272 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:19:22,272 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:19:22,272 : INFO : parser_initiation : Getting content of RSS link
+2021-10-28 12:19:22,637 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:25:13,896 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:25:13,897 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:25:13,897 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:25:14,214 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:25:14,292 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:29:19,067 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:29:19,068 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:29:19,068 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:29:19,075 : ERROR : parser_initiation : Invalid URL '-1': No schema supplied. Perhaps you meant http://-1?
+2021-10-28 12:29:19,075 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:30:59,562 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:30:59,562 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:30:59,967 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:31:00,047 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:31:00,047 : INFO : view_output : Printing output in JSON format
+2021-10-28 12:31:00,048 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:35:40,198 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:35:40,198 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:35:40,573 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:35:40,600 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:35:40,600 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:35:40,601 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:45:53,512 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:45:53,512 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:45:53,825 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:45:53,915 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:45:53,915 : INFO : view_output : Printing output in JSON format
+2021-10-28 12:45:53,918 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:46:03,355 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:46:03,355 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:46:03,597 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:46:03,675 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:46:03,675 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:46:03,679 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:46:20,810 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:46:20,811 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:46:21,093 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:46:21,172 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:46:21,172 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:46:21,190 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:49:58,866 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:49:58,866 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:49:59,318 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:49:59,410 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:49:59,410 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:49:59,435 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:59:38,977 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:59:38,977 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:59:39,306 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:59:39,411 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:59:39,411 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:59:39,441 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 12:59:55,996 : INFO : __init__ : RSS Parser is starting
+2021-10-28 12:59:55,996 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 12:59:56,238 : INFO : parser_initiation : Connection established successfully
+2021-10-28 12:59:56,320 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 12:59:56,321 : INFO : view_output : Printing output in a human readable way
+2021-10-28 12:59:56,345 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:00:41,745 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:00:41,745 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:00:42,004 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:00:42,074 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:00:42,074 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:00:42,105 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:06:51,018 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:06:51,018 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:06:51,018 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:06:51,312 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:06:51,378 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:08:59,816 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:08:59,816 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:08:59,817 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:09:00,275 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:09:00,346 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:09:00,795 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:09:50,793 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:09:50,793 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:09:50,793 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:09:51,061 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:09:51,129 : INFO : view_output : Printing output in JSON format
+2021-10-28 13:09:51,135 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:09:55,945 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:09:55,945 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:09:55,945 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:09:56,178 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:09:56,245 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:09:56,322 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:13:24,957 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:13:24,958 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:13:24,959 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:13:25,270 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:13:25,339 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:13:25,345 : INFO : title_parser : Parsing 'title'...
+2021-10-28 13:13:25,401 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:13:25,410 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:13:25,415 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:13:25,427 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:17:38,815 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:17:38,815 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:17:38,818 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:17:39,143 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:17:39,219 : INFO : view_output : Printing output in JSON format
+2021-10-28 13:17:39,220 : INFO : json_feed_presentation : Generating json object...
+2021-10-28 13:17:39,225 : INFO : title_parser : Parsing 'title'...
+2021-10-28 13:17:39,237 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:17:39,241 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:17:39,252 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:17:39,274 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:28:36,386 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:28:36,386 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:28:36,398 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:28:36,747 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:28:36,831 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:28:36,838 : INFO : title_parser : Parsing 'title'...
+2021-10-28 13:28:36,877 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:36,885 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:36,909 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:36,932 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:28:44,202 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:28:44,203 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:28:44,214 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:28:44,474 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:28:44,556 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:28:44,567 : INFO : title_parser : Parsing 'title'...
+2021-10-28 13:28:44,602 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:44,631 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:44,641 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:44,670 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:44,700 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:44,735 : INFO : <module> : --------------------Session finished--------------------
+2021-10-28 13:28:55,117 : INFO : <module> : --------------------Starting session--------------------
+2021-10-28 13:28:55,118 : INFO : __init__ : RSS Parser is starting
+2021-10-28 13:28:55,118 : INFO : parser_initiation : Getting content of RSS link...
+2021-10-28 13:28:55,353 : INFO : parser_initiation : Connection established successfully
+2021-10-28 13:28:55,416 : INFO : view_output : Printing output in a human readable way
+2021-10-28 13:28:55,421 : INFO : title_parser : Parsing 'title'...
+2021-10-28 13:28:55,437 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:55,451 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:55,455 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:55,458 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:55,460 : INFO : item_parser : Parsing single 'item'...
+2021-10-28 13:28:55,463 : INFO : <module> : --------------------Session finished--------------------
