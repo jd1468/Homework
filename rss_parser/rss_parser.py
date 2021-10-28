@@ -1,14 +1,18 @@
 # TODO
 #  1. Implement URL-shortener
-#  2. Add json structure to readme
 #  3. Description text can include inner tags. Get rid of them
+#  4. Add optional argument --date
+#  5. Implement news caching
+import os
 
 import requests
 from bs4 import BeautifulSoup
 import argparse
 import json
 import logging
-import os
+from datetime import datetime
+
+CACHE_PATH = r'../data/cache'
 
 logger = logging.getLogger('__name__')
 logger.setLevel(logging.INFO)
@@ -168,11 +172,13 @@ class RSSParser:
         :return: None
         """
         print('\n')
+        print(f'Source: {self.url}')
+        print('\n')
         self.title_view()
         print(f'\n{60 * "-"}\n')
         self.items_view()
 
-    def json_feed_presentation(self):
+    def json_feed_generation(self):
         """
         Method is called if 'json_flag' is True. Prints title and items as a json structure
         :return: None
@@ -186,22 +192,155 @@ class RSSParser:
             if item_id == self.limit - 1:
                 break
 
-        json_object = json.dumps({'header': title_dict, 'items': items_dict})
+        json_object = json.dumps({'source': self.url, 'header': title_dict, 'items': items_dict})
+        return json_object
+
+    def json_feed_presentation(self):
+        json_object = self.json_feed_generation()
         print(json_object)
+
+    def caching(self):
+        filename = str(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")) + '.json'
+        path = os.path.join(CACHE_PATH, filename)
+
+        with open(path, 'w') as file:
+            file.write(self.json_feed_generation())
+
+
+class CacheReader:
+    def __init__(self, datetime_date, limit=-1, json_flag=False, source=None):
+        self.date = datetime_date.strftime('%a, %d %b %Y')
+        self.limit = limit
+        self.json_flag = json_flag
+        self.source = source
+
+    def view_output(self):
+        if self.json_flag is False:
+            logger.info('Getting output in a human readable way...')
+            self.feed_presentation()
+        else:
+            logger.info('Getting output in a JSON format...')
+            self.json_news_presentation()
+
+    def news_getter(self):
+        logger.info('Getting news from cache...')
+        news_counter = 0
+        news_dict = {}
+        for filename in sorted(os.listdir(CACHE_PATH), reverse=True):
+            single_file_news = self.single_file_date_checker(filename)
+            if bool(single_file_news) is False:
+                continue
+
+            title = single_file_news['source_title']['title']
+            if single_file_news['source_title']['title'] not in news_dict.keys():
+                news_dict[title] = {}
+                news_dict[title]['header'] = single_file_news['source_title']
+                news_dict[title]['news'] = {}
+
+            for _ in single_file_news['news'].keys():
+                if _ in news_dict[title]['news'].keys():
+                    continue
+                else:
+                    news_dict[title]['news'][_] = single_file_news['news'][_]
+                    news_counter += 1
+
+                    if news_counter == self.limit:
+                        return news_dict
+
+        if bool(news_dict) is False:
+            logger.info('There are no news in cache')
+
+        return news_dict
+
+    def single_file_date_checker(self, filename):
+        news_dict = {}
+        path = os.path.join(CACHE_PATH, filename)
+        with open(path, 'r') as file:
+            content = json.load(file)
+
+        source = content['source']
+        if self.source is not None:
+            logger.info('Filtering news by source...')
+            if source == self.source:
+                pass
+            else:
+                return news_dict
+
+        title = content['header']
+        items = content['items']
+        for _ in list(items.keys()):
+            date = items[_]['date']
+            if self.date in date:
+                if bool(news_dict) is False:
+                    news_dict['source_title'] = title
+                    news_dict['news'] = {}
+                news_dict['news'][_] = items[_]
+
+        return news_dict
+
+    def feed_presentation(self):
+        news_dict = self.news_getter()
+        for source_title in news_dict.keys():
+            print('\n')
+            source = news_dict[source_title]['header']
+            self.title_presentation(source)
+            print(f'\n{60 * "-"}\n')
+
+            news = news_dict[source_title]['news']
+            self.news_presentation(news)
+
+    @staticmethod
+    def title_presentation(title):
+        print(f'Feed: {title["title"]}')
+        print(f'Site link: {title["link"]}')
+        print(f'Description: {title["description"]}')
+        print(f'Copyright: {title["copyright"]}')
+
+    def news_presentation(self, news):
+        for _ in news.keys():
+            self.single_news_presentation(news[_])
+            print(f'{20 * "-"}')
+
+    @staticmethod
+    def single_news_presentation(item):
+        print(f'Title: {item["title"]}')
+        print(f'Date: {item["date"]}')
+        print(f'{item["description"]}')
+        print(f'Link: {item["link"]}')
+
+    def json_feed_generation(self):
+        logger.info('Generating JSON structure...')
+        json_object = json.dumps(self.news_getter())
+        print(type(json_object), ' json object')
+        return json_object
+
+    def json_news_presentation(self):
+        print(self.json_feed_generation())
 
 
 def args_checker():
     """
-    Function defines arguments, that will be read from command line input
+    Function defines arguments, that will be read from command line input.
+    Function first looks only for optional arguments, so that if optional argument '--date' was passed, program will not
+    stop, and will work with corresponding logic, if '--date' was not found in passed arguments, than non-optional
+    argument is added to arg parser and passed args are parsed once again
     :return: list
     """
     arg_parser = argparse.ArgumentParser(description='Python command-line RSS parser')
 
-    arg_parser.add_argument('url', help='RSS URL')
-    arg_parser.add_argument('-v', '--version',  help='print version info', action='version', version='1.0')
+    arg_parser.add_argument('--date', help='get news from cache by date',
+                            type=lambda d: datetime.strptime(d, '%Y%m%d'))
     arg_parser.add_argument('--json', help='print result in JSON format in stdout', action='store_true')
     arg_parser.add_argument('--verbose', help='outputs verbose status messages', action='store_true')
     arg_parser.add_argument('--limit', help='limit news topics if parameter is provided', type=int, default=-1)
+
+    options, remainder = arg_parser.parse_known_args()
+    if options.date:
+        arg_parser.add_argument('--source', help='RSS URL that will be used as a filter for cached news')
+    else:
+        arg_parser.add_argument('url', help='RSS URL')
+        arg_parser.add_argument('-v', '--version', help='print version info', action='version', version='1.1')
+
     args_list = arg_parser.parse_args()
     return args_list
 
@@ -219,13 +358,18 @@ def main():
 
     logger.info(f'{20 * "-"}Starting session{20 * "-"}')
 
-    parser = RSSParser(args.url, args.limit, args.json)
-    parser.view_output()
+    if args.date:
+        cache_reader = CacheReader(args.date, args.limit, args.json, args.source)
+        cache_reader.view_output()
+    else:
+        parser = RSSParser(args.url, args.limit, args.json)
+        parser.view_output()
+        parser.caching()
 
     # parser = RSSParser()
     # parser.view_output()
 
-    logger.info(f'{20 * "-"}Session finished{20 * "-"}')
+    logger.info(f'{20 * "-"}Session finished{20 * "-"}\n')
 
 
 if __name__ == '__main__':

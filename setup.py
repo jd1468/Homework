@@ -1,7 +1,7 @@
 import setuptools
 setuptools.setup(
     name='rss_reader',
-    version='1.0',
+    version='1.1',
     packages=setuptools.find_packages(),
     description='RSS-Reader is a program for news xml parsing and presentin it in a human readable way. Additional '
                 'feature is a JSON presentation, which allow to present news as a json structure',
