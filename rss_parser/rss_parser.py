@@ -8,13 +8,14 @@ from bs4 import BeautifulSoup
 import argparse
 import json
 import logging
+import os
 
 logger = logging.getLogger('__name__')
 logger.setLevel(logging.INFO)
 
 file_formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(funcName)s : %(message)s')
 stream_formatter = logging.Formatter('%(levelname)s : %(message)s')
-file_handler = logging.FileHandler('logs/rss_parser.log')
+file_handler = logging.FileHandler('../rss_parser.log')
 file_handler.setFormatter(file_formatter)
 file_handler.setLevel(logging.DEBUG)
 
@@ -205,7 +206,11 @@ def args_checker():
     return args_list
 
 
-if __name__ == '__main__':
+def main():
+    """
+    Function that runs whole app loop. Was implemented for setuptools, for 'entry_points'
+    :return: None
+    """
     # parser = RSSParser('https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml')
 
     args = args_checker()
@@ -221,3 +226,7 @@ if __name__ == '__main__':
     # parser.view_output()
 
     logger.info(f'{20 * "-"}Session finished{20 * "-"}')
+
+
+if __name__ == '__main__':
+    main()
