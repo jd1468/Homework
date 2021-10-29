@@ -1,7 +1,6 @@
 import unittest
 import bs4
 from rss_parser.rss_parser import RSSParser, CacheReader
-import os
 from datetime import datetime
 
 
@@ -10,7 +9,7 @@ class TestRSSParser(unittest.TestCase):
         self.parser1 = RSSParser()
         self.parser2 = RSSParser('https://www.onliner.by/feed')
 
-        path = os.path.join(os.path.dirname(os.getcwd()), 'data/test_data/test.xml')
+        path = 'data/test_data/test.xml'
 
         with open(path, 'r') as file:
             self.soup = bs4.BeautifulSoup(file.read(), 'xml')

@@ -1,5 +1,6 @@
 ##JSON Structures
-{'header':
+{'source': link,
+'header':
     {'title': title.title,
      'link': title.link,
      'description': title.description,
@@ -18,7 +19,8 @@ This JSON structure is used in iteration 1 for json presentation  and in iterati
 
 
 {title.title:
-    {'header':
+    {'source': link,
+    'header':
         {'title': title.title,
          'link': title.link,
          'description': title.description,

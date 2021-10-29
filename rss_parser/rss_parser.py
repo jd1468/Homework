@@ -1,10 +1,9 @@
 # TODO
 #  1. Implement URL-shortener
 #  3. Description text can include inner tags. Get rid of them
-#  4. Add optional argument --date
-#  5. Implement news caching
-import os
 
+
+import os
 import requests
 from bs4 import BeautifulSoup
 import argparse
@@ -12,7 +11,7 @@ import json
 import logging
 from datetime import datetime
 
-CACHE_PATH = r'../data/cache'
+CACHE_PATH = 'data/cache'
 
 logger = logging.getLogger('__name__')
 logger.setLevel(logging.INFO)
@@ -29,6 +28,14 @@ stream_handler.setLevel(logging.INFO)
 
 
 logger.addHandler(file_handler)
+
+
+class NewsNotFoundError(Exception):
+    pass
+
+
+class DirectoryNotFoundError(Exception):
+    pass
 
 
 class RSSParser:
@@ -201,8 +208,10 @@ class RSSParser:
 
     def caching(self):
         filename = str(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")) + '.json'
-        path = os.path.join(CACHE_PATH, filename)
+        if os.path.exists(CACHE_PATH) is False:
+            os.makedirs(CACHE_PATH)
 
+        path = os.path.join(CACHE_PATH, filename)
         with open(path, 'w') as file:
             file.write(self.json_feed_generation())
 
@@ -215,6 +224,11 @@ class CacheReader:
         self.source = source
 
     def view_output(self):
+        """
+        Method defines how data will be presented, based on passed arguments. If json_flag was passed, data will be
+        presented in a json format, otherwise - in a human readable way.
+        :return: None
+        """
         if self.json_flag is False:
             logger.info('Getting output in a human readable way...')
             self.feed_presentation()
@@ -223,9 +237,16 @@ class CacheReader:
             self.json_news_presentation()
 
     def news_getter(self):
+        """
+        Method parses directory looking for news
+        :return: dict
+        """
         logger.info('Getting news from cache...')
         news_counter = 0
         news_dict = {}
+        if os.path.exists(CACHE_PATH) is False:
+            raise DirectoryNotFoundError('No cache directory was found')
+
         for filename in sorted(os.listdir(CACHE_PATH), reverse=True):
             single_file_news = self.single_file_date_checker(filename)
             if bool(single_file_news) is False:
@@ -247,12 +268,14 @@ class CacheReader:
                     if news_counter == self.limit:
                         return news_dict
 
-        if bool(news_dict) is False:
-            logger.info('There are no news in cache')
-
         return news_dict
 
     def single_file_date_checker(self, filename):
+        """
+        Method parses single json file looking for news with date corresponding to one passed
+        :param filename: str
+        :return: dict
+        """
         news_dict = {}
         path = os.path.join(CACHE_PATH, filename)
         with open(path, 'r') as file:
@@ -279,7 +302,14 @@ class CacheReader:
         return news_dict
 
     def feed_presentation(self):
+        """
+        Method prints source, title and news for corresponding date
+        :return: None
+        """
         news_dict = self.news_getter()
+        if bool(news_dict) is False:
+            raise NewsNotFoundError('No news were found for provided date')
+
         for source_title in news_dict.keys():
             print('\n')
             source = news_dict[source_title]['header']
@@ -291,30 +321,57 @@ class CacheReader:
 
     @staticmethod
     def title_presentation(title):
+        """
+        Method prints title
+        :param title: dict
+        :return: None
+        """
         print(f'Feed: {title["title"]}')
         print(f'Site link: {title["link"]}')
         print(f'Description: {title["description"]}')
         print(f'Copyright: {title["copyright"]}')
 
     def news_presentation(self, news):
+        """
+        Method prints news
+        :param news: dict
+        :return: None
+        """
         for _ in news.keys():
             self.single_news_presentation(news[_])
             print(f'{20 * "-"}')
 
     @staticmethod
     def single_news_presentation(item):
+        """
+        Method prints single news
+        :param item: dict
+        :return: None
+        """
         print(f'Title: {item["title"]}')
         print(f'Date: {item["date"]}')
         print(f'{item["description"]}')
         print(f'Link: {item["link"]}')
 
     def json_feed_generation(self):
+        """
+        Method generates json objects
+        :return: str
+        """
         logger.info('Generating JSON structure...')
-        json_object = json.dumps(self.news_getter())
+        news_dict = self.news_getter()
+        if bool(news_dict) is False:
+            raise NewsNotFoundError('No news were found for provided date')
+
+        json_object = json.dumps(news_dict)
         print(type(json_object), ' json object')
         return json_object
 
     def json_news_presentation(self):
+        """
+        Method prints json object
+        :return: None
+        """
         print(self.json_feed_generation())
 
 
@@ -360,7 +417,12 @@ def main():
 
     if args.date:
         cache_reader = CacheReader(args.date, args.limit, args.json, args.source)
-        cache_reader.view_output()
+        try:
+            cache_reader.view_output()
+        except DirectoryNotFoundError as err:
+            logger.error(err)
+        except NewsNotFoundError as err:
+            logger.error(err)
     else:
         parser = RSSParser(args.url, args.limit, args.json)
         parser.view_output()

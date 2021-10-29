@@ -1,3 +1,7 @@
 include README
 include requirements.txt
 include rss_parser.log
+recursive-include rss_parser/data
+recursive-include rss_parser/data/cache
+recursive-include test/data/cache
+recursive-include test/data/test_date
