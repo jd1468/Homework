@@ -1,6 +1,6 @@
 import unittest
 import bs4
-from rss_parser.rss_parser import RSSParser, CacheReader
+from rss_parser.rss_parser import RSSParser, CacheReader, HTMLConverter
 from datetime import datetime
 
 
@@ -105,6 +105,82 @@ class TestCacheReader(unittest.TestCase):
 
     def test_json_news_presentation(self):
         print('json_news_presentation() does not return anything')
+
+
+class TestHTMLConverter(unittest.TestCase):
+    def setUp(self):
+        news_dict = {'Times Series | News':
+                         {'source': 'https://www.times-series.co.uk/news/rss/',
+                          'header': {'title': 'Times Series | News',
+                                     'link': 'https://www.times-series.co.uk/news/rss/',
+                                     'description': 'Times Series News', 'copyright': 'field is not defined'},
+                          'news': {'Bonfire Night 2021: Top 10 places to watch the fireworks':
+                                       {'title': 'Bonfire Night 2021: Top 10 places to watch the fireworks',
+                                        'description': "Bonfire Night will soon be upon us and Hertfordshire's night "
+                                                       "skies will light up a multitude of fireworks displays.",
+                                        'link': 'https://www.times-series.co.uk/news/19681990.bonfire-night-2021-top-'
+                                                '10-places-watch-fireworks/?ref=rss',
+                                        'date': 'Sat, 30 Oct 2021 13:00:00 +0100'},
+                                   'Partial Closure Order in place at property in Potters Bar':
+                                       {'title': 'Partial Closure Order in place at property in Potters Bar',
+                                        'description': 'Action has been taken to prevent further anti-social behaviour '
+                                                       'and suspected drug use at a flat in Potters Bar.',
+                                        'link': 'https://www.times-series.co.uk/news/19683686.partial-closure-order-'
+                                                'place-property-potters-bar/?ref=rss',
+                                        'date': 'Sat, 30 Oct 2021 10:09:12 +0100'}}}}
+        self.news_list = ['<div><h2>Times Series | News</h2><p>Link: <a href="https://www.times-series.co.uk/news/rss/">'
+                     'https://www.times-series.co.uk/news/rss/</a></p><p>Description: Times Series News</p>'
+                     '<p>Copyright: field is not defined</p><p>------------------------------------------------------'
+                     '------</p><h3>Bonfire Night 2021: Top 10 places to watch the fireworks</h3><p>Description: '
+                     'Bonfire Night will soon be upon us and Hertfordshire\'s night skies will light up a multitude of '
+                     'fireworks displays.</p><p>Link: <a href="https://www.times-series.co.uk/news/19681990.bonfire-'
+                     'night-2021-top-10-places-watch-fireworks/?ref=rss">https://www.times-series.co.uk/news/19681990.'
+                     'bonfire-night-2021-top-10-places-watch-fireworks/?ref=rss</a></p><p>Date: Sat, 30 Oct 2021 '
+                     '13:00:00 +0100</p><p>------------------------------------------------------------</p><h3>Partial '
+                     'Closure Order in place at property in Potters Bar</h3><p>Description: Action has been taken to '
+                     'prevent further anti-social behaviour and suspected drug use at a flat in Potters Bar.</p>'
+                     '<p>Link: <a href="https://www.times-series.co.uk/news/19683686.partial-closure-order-place-'
+                     'property-potters-bar/?ref=rss">https://www.times-series.co.uk/news/19683686.partial-closure-order'
+                     '-place-property-potters-bar/?ref=rss</a></p><p>Date: Sat, 30 Oct 2021 10:09:12 +0100</p><p>-'
+                     '-----------------------------------------------------------</p></div>']
+
+        news_dict_content = news_dict[list(news_dict.keys())[0]]
+        self.source = news_dict_content['source']
+        self.title = news_dict_content['header']
+        self.news = news_dict_content['news']
+
+        self.html_converter1 = HTMLConverter(news_dict)
+        self.html_converter2 = HTMLConverter(news_dict)
+
+    def test_write_to_html(self):
+        self.assertIsInstance(self.html_converter1.write_to_html(), str)
+        self.assertNotIsInstance(self.html_converter2.write_to_html(), dict)
+
+    def test_source_creation(self):
+        self.assertIsInstance(self.html_converter1.source_creation(self.source), str)
+        self.assertNotIsInstance(self.html_converter2.source_creation(self.source), dict)
+
+    def test_title_creation(self):
+        self.assertIsInstance(self.html_converter1.title_creation(self.title), str)
+        self.assertNotIsInstance(self.html_converter2.title_creation(self.title), list)
+
+    def test_news_creation(self):
+        self.assertIsInstance(self.html_converter1.news_creation(self.news), str)
+        self.assertNotIsInstance(self.html_converter2.news_creation(self.news), dict)
+
+    def test_html_combination(self):
+        self.assertIsInstance(self.html_converter1.html_combination(self.news_list), str)
+        self.assertNotIsInstance(self.html_converter2.html_combination(self.news_list), list)
+
+    def test_html_creation(self):
+        print('html_creation() does not return anything')
+
+    def test_dir_creation(self):
+        print('dir_creation() does not return anything')
+
+
+
+
 
 
 if __name__ == '__main__':

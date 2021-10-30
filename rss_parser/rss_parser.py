@@ -16,14 +16,25 @@ from fpdf import FPDF
 import html2epub
 # import text2mobi
 
+from colorlog import ColoredFormatter
+import colorama
+from colorama import Fore
+
 CACHE_PATH = 'data/cache'
 EXPORT_PATH = 'data/export'
+
+colorama.init(autoreset=True)
 
 logger = logging.getLogger('__name__')
 logger.setLevel(logging.INFO)
 
 file_formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(funcName)s : %(message)s')
 stream_formatter = logging.Formatter('%(levelname)s : %(message)s')
+stream_colored_formatter = ColoredFormatter('%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s', datefmt=None,
+                                            reset=True, log_colors={'DEBUG': 'cyan', 'INFO': 'green',
+                                                                    'WARNING': 'yellow', 'ERROR': 'red',
+                                                                    'CRITICAL': 'red,bg_white'},
+                                            secondary_log_colors={}, style='%')
 file_handler = logging.FileHandler('../rss_parser.log')
 file_handler.setFormatter(file_formatter)
 file_handler.setLevel(logging.DEBUG)
@@ -32,6 +43,9 @@ stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(stream_formatter)
 stream_handler.setLevel(logging.INFO)
 
+stream_colored_handler = logging.StreamHandler()
+stream_colored_handler.setFormatter(stream_colored_formatter)
+stream_colored_handler.setLevel(logging.INFO)
 
 logger.addHandler(file_handler)
 
@@ -45,12 +59,14 @@ class DirectoryNotFoundError(Exception):
 
 
 class RSSParser:
-    def __init__(self, url='https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', limit=-1, json_flag=False):
+    def __init__(self, url='https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml', limit=-1, json_flag=False,
+                 colored_output=False):
         logger.info('RSS Parser is starting')
         self.url = url
         self.limit = limit
         self.soup = self.parser_initiation()
         self.json_flag = json_flag
+        self.colored_output = colored_output
 
     def view_output(self):
         """
@@ -114,14 +130,31 @@ class RSSParser:
         print(f'Description: {title["description"]}')
         print(f'Copyright: {title["copyright"]}')
 
-    def items_view(self):
+    def colored_title_view(self):
+        """
+        Method fulfils viewer functionality, prints colored hardcoded tags of xml 'title' in a human readable way in a
+        command line
+        :return: None
+        """
+        title = self.title_parser()
+
+        print(Fore.BLUE + 'Feed: ', title["title"])
+        print(Fore.CYAN + 'Site link: ', title["link"])
+        print(Fore.BLUE + 'Description: ', title["description"])
+        print(Fore.BLUE + 'Copyright: ', title["copyright"])
+
+    def items_view(self, colored=False):
         """
         Method works as viewer for all items in xml, calling for item_view(),  viewer method for single item, while
         iterating through all items in xml
+        :param colored: bool
         :return: None
         """
         for item_id, item in enumerate(self.soup.find_all('item')):
-            self.item_view(item)
+            if not colored:
+                self.item_view(item)
+            else:
+                self.colored_item_view(item)
             print(f'{20 * "-"}')
             if item_id == (self.limit - 1):
                 break
@@ -163,6 +196,20 @@ class RSSParser:
         print(f'{item["description"]}')
         print(f'Link: {item["link"]}')
 
+    def colored_item_view(self, single_item):
+        """
+        Method works as a viewer for a single 'item' element from xml, prints hardcoded colored 'item' tags in a human
+        readable way
+        :param single_item: bs4.element.Tag
+        :return: None
+        """
+        item = self.item_parser(single_item)
+
+        print(Fore.BLUE + 'Title: ', item["title"])
+        print(Fore.GREEN + 'Date: ', item["date"])
+        print(f'{item["description"]}')
+        print(Fore.CYAN + 'Link: ', item["link"])
+
     @staticmethod
     def empty_field_checker(field):
         """
@@ -184,12 +231,21 @@ class RSSParser:
         Method prints title and items, by calling corresponding methods
         :return: None
         """
-        print('\n')
-        print(f'Source: {self.url}')
-        print('\n')
-        self.title_view()
-        print(f'\n{60 * "-"}\n')
-        self.items_view()
+        if self.colored_output is False:
+            print('\n')
+            print(f'Source: {self.url}')
+            print('\n')
+            self.title_view()
+            print(f'\n{60 * "-"}\n')
+            self.items_view()
+
+        if self.colored_output is True:
+            print('\n')
+            print(Fore.CYAN + f'Source: ', self.url)
+            print('\n')
+            self.colored_title_view()
+            print(f'\n{60 * "-"}\n')
+            self.items_view(colored=True)
 
     def json_feed_generation(self):
         """
@@ -213,6 +269,7 @@ class RSSParser:
         print(json_object)
 
     def caching(self):
+        logger.info('Caching news...')
         filename = str(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")) + '.json'
         if os.path.exists(CACHE_PATH) is False:
             os.makedirs(CACHE_PATH)
@@ -220,14 +277,16 @@ class RSSParser:
         path = os.path.join(CACHE_PATH, filename)
         with open(path, 'w') as file:
             file.write(self.json_feed_generation())
+            logger.info('File successfully created')
 
 
 class CacheReader:
-    def __init__(self, datetime_date, limit=-1, json_flag=False, source=None):
+    def __init__(self, datetime_date, limit=-1, json_flag=False, source=None, colorized_output=False):
         self.date = datetime_date.strftime('%a, %d %b %Y')
         self.limit = limit
         self.json_flag = json_flag
         self.source = source
+        self.colorized_output = colorized_output
 
     def view_output(self):
         """
@@ -287,10 +346,7 @@ class CacheReader:
         path = os.path.join(CACHE_PATH, filename)
         with open(path, 'r') as file:
             content = json.load(file)
-        print(list(content.keys()))
-        print(list(content.keys())[0])
-        # content = list(content.items())[0]
-        # print(content, ' contnet 2')
+
         content = content[list(content.keys())[0]]
         source = content['source']
         if self.source is not None:
@@ -322,14 +378,25 @@ class CacheReader:
         if bool(news_dict) is False:
             raise NewsNotFoundError('No news were found for provided date')
 
-        for source_title in news_dict.keys():
-            print('\n')
-            source = news_dict[source_title]['header']
-            self.title_presentation(source)
-            print(f'\n{60 * "-"}\n')
+        if self.colorized_output is False:
+            for source_title in news_dict.keys():
+                print('\n')
+                source = news_dict[source_title]['header']
+                self.title_presentation(source)
+                print(f'\n{60 * "-"}\n')
 
-            news = news_dict[source_title]['news']
-            self.news_presentation(news)
+                news = news_dict[source_title]['news']
+                self.news_presentation(news)
+
+        if self.colorized_output is True:
+            for source_title in news_dict.keys():
+                print('\n')
+                source = news_dict[source_title]['header']
+                self.colored_title_presentation(source)
+                print(f'\n{60 * "-"}\n')
+
+                news = news_dict[source_title]['news']
+                self.news_presentation(news, colored=True)
 
     @staticmethod
     def title_presentation(title):
@@ -343,14 +410,30 @@ class CacheReader:
         print(f'Description: {title["description"]}')
         print(f'Copyright: {title["copyright"]}')
 
-    def news_presentation(self, news):
+    @staticmethod
+    def colored_title_presentation(title):
+        """
+        Method prints colored title
+        :param title: dict
+        :return: None
+        """
+        print(Fore.BLUE + 'Feed: ', title["title"])
+        print(Fore.CYAN + 'Site link: ', title["link"])
+        print(Fore.BLUE + 'Description: ', title["description"])
+        print(Fore.BLUE + 'Copyright: ', title["copyright"])
+
+    def news_presentation(self, news, colored=False):
         """
         Method prints news
         :param news: dict
+        :param colored: bool
         :return: None
         """
         for _ in news.keys():
-            self.single_news_presentation(news[_])
+            if not colored:
+                self.single_news_presentation(news[_])
+            else:
+                self.colored_single_news_presentation(news[_])
             print(f'{20 * "-"}')
 
     @staticmethod
@@ -364,6 +447,18 @@ class CacheReader:
         print(f'Date: {item["date"]}')
         print(f'{item["description"]}')
         print(f'Link: {item["link"]}')
+
+    @staticmethod
+    def colored_single_news_presentation(item):
+        """
+        Method prints colored single news
+        :param item: dict
+        :return: None
+        """
+        print(Fore.BLUE + 'Title: ', item["title"])
+        print(Fore.GREEN + 'Date: ', item["date"])
+        print(f'{item["description"]}')
+        print(Fore.CYAN + 'Link: ', item["link"])
 
     def json_feed_generation(self):
         """
@@ -576,6 +671,7 @@ class HTMLConverter:
         :param news_list: list
         :return: str
         """
+        print(news_list)
         html = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><h1>News</h1></head><body>' + \
                ''.join(i for i in news_list) + '</body></html>'
 
@@ -680,25 +776,39 @@ def args_checker():
     """
     arg_parser = argparse.ArgumentParser(description='Python command-line RSS parser')
 
-    arg_parser.add_argument('--date', help='get news from cache by date',
+    # subparsers = arg_parser.add_subparsers(help='different program way')
+    # parser_url = subparsers.add_parser('url', help='RSS URL')
+    # parser_url.add_argument('url', help='RSS URL')
+    #
+    # parser_date = subparsers.add_parser('--date', help='get news from cache by date')
+    # parser_date.add_argument('--date', help='get news from cache by date',
+    #                          type=lambda d: datetime.strptime(d, '%Y%m%d'))
+    # parser_date.add_argument('--source', help='RSS URL that will be used as a filter for cached news')
+
+    arg_parser.add_argument('--date', help='get news from cache by date | to get news from link just pass link and add '
+                                           'necessary optional arguments',
                             type=lambda d: datetime.strptime(d, '%Y%m%d'))
     arg_parser.add_argument('--json', help='print result in JSON format in stdout', action='store_true')
     arg_parser.add_argument('--verbose', help='outputs verbose status messages', action='store_true')
     arg_parser.add_argument('--limit', help='limit news topics if parameter is provided', type=int, default=-1)
+    arg_parser.add_argument('--colorize', help='colorize terminal output', action='store_true')
 
     arg_parser.add_argument('--to-pdf', help='export news to pdf format', action='store_true')
     arg_parser.add_argument('--to-html', help='export news to html format', action='store_true')
     arg_parser.add_argument('--to-epub', help='export news to epub format', action='store_true')
     arg_parser.add_argument('--to-mobi', help='export news to mobi format', action='store_true')
 
+    arg_parser.add_argument('-v', '--version', help='print version info', action='version', version='1.3')
+
     options, remainder = arg_parser.parse_known_args()
     if options.date:
         arg_parser.add_argument('--source', help='RSS URL that will be used as a filter for cached news')
     else:
         arg_parser.add_argument('url', help='RSS URL')
-        arg_parser.add_argument('-v', '--version', help='print version info', action='version', version='1.2')
+        # arg_parser.add_argument('-v', '--version', help='print version info', action='version', version='1.3')
 
     args_list = arg_parser.parse_args()
+
     return args_list
 
 
@@ -710,14 +820,17 @@ def main():
     # parser = RSSParser('https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml')
 
     args = args_checker()
-    print(args)
-    if args.verbose:
+
+    if args.colorize and args.verbose:
+        logger.addHandler(stream_colored_handler)
+    elif args.verbose:
         logger.addHandler(stream_handler)
 
     logger.info(f'{20 * "-"}Starting session{20 * "-"}')
 
     if args.date:
-        rss_reader = CacheReader(args.date, args.limit, args.json, args.source)
+        rss_reader = CacheReader(datetime_date=args.date, limit=args.limit, json_flag=args.json, source=args.source,
+                                 colorized_output=args.colorize)
         try:
             rss_reader.view_output()
         except DirectoryNotFoundError as err:
@@ -725,9 +838,10 @@ def main():
         except NewsNotFoundError as err:
             logger.error(err)
     else:
-        rss_reader = RSSParser(args.url, args.limit, args.json)
+        rss_reader = RSSParser(url=args.url, limit=args.limit, json_flag=args.json, colored_output=args.colorize)
         rss_reader.view_output()
         rss_reader.caching()
+
     # TODO
     #  ITERATION 3
     #  4. Add images to parser, store them somehow
@@ -743,6 +857,7 @@ def main():
     elif args.to_html:
         news = rss_reader.json_feed_generation()
         news = json.loads(news)
+        print(news)
         html_converter = HTMLConverter(news)
         html_converter.write_to_html()
         html_converter.html_creation()
